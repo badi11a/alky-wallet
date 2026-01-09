@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallet - Enviar Dinero</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body { padding: 20px; background-color: #f8f9fa; }
+        .container { max-width: 600px; margin: 0 auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+
+    <div class="container mt-4">
+        <h2 class="mb-4 text-center">Enviar Dinero</h2>
+        
+        <div class="form-group">
+            <label for="searchContact">Buscar contacto:</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="searchContact" placeholder="Nombre del contacto...">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button" id="btnSearch">Buscar</button>
+                </div>
+            </div>
+        </div>
+
+        <button type="button" class="btn btn-success btn-block mb-4" data-toggle="modal" data-target="#addContactModal">
+            + Agregar nuevo contacto
+        </button>
+
+        <h3>Contactos</h3>
+        <ul id="contactList" class="list-group mb-4">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div class="contact-info">
+                    <strong>Juan Pérez</strong><br>
+                    <small class="text-muted">RUT: 12.345.678-9 | Banco Estado</small>
+                </div>
+                <button class="btn btn-sm btn-outline-primary">Seleccionar</button>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div class="contact-info">
+                    <strong>María González</strong><br>
+                    <small class="text-muted">RUT: 9.876.543-2 | Banco de Chile</small>
+                </div>
+                <button class="btn btn-sm btn-outline-primary">Seleccionar</button>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div class="contact-info">
+                    <strong>Carlos Tapia</strong><br>
+                    <small class="text-muted">RUT: 15.111.222-3 | Santander</small>
+                </div>
+                <button class="btn btn-sm btn-outline-primary">Seleccionar</button>
+            </li>
+        </ul>
+
+        <a href="menu.html" class="btn btn-secondary btn-block">Volver al Menú Principal</a>
+    </div>
+
+    <div class="modal fade" id="addContactModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalLabel">Nuevo Contacto</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="addContactForm">
+                <div class="form-group">
+                    <label>Nombre del destinatario</label>
+                    <input type="text" class="form-control" id="newContactName" placeholder="Ej: Camila Soto" required>
+                </div>
+                <div class="form-group">
+                    <label>RUT</label>
+                    <input type="text" class="form-control" id="newContactRUT" placeholder="Ej: 12.345.678-9" required>
+                </div>
+                <div class="form-group">
+                    <label>Banco</label>
+                    <select class="form-control" id="newContactBank">
+                        <option>Banco Estado</option>
+                        <option>Banco de Chile</option>
+                        <option>Santander</option>
+                        <option>BCI</option>
+                        <option>Scotiabank</option>
+                        <option>Itaú</option>
+                        <option>Falabella</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Tipo de Cuenta</label>
+                    <select class="form-control" id="newContactType">
+                        <option>Cuenta Rut / Vista</option>
+                        <option>Cuenta Corriente</option>
+                        <option>Cuenta de Ahorro</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Número de Cuenta</label>
+                    <input type="number" class="form-control" id="newContactNumber" placeholder="Ej: 12345678" required>
+                </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary" id="saveContactBtn">Guardar Contacto</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // Aquí agregaremos la lógica para el botón "Guardar Contacto"
+            // y para el buscador.
+        });
+    </script>
+</body>
+</html>

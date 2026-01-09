@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallet - Depositar</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+
+    <div class="container mt-5" style="max-width: 500px;">
+        <h2 class="mb-4">Depositar Dinero</h2>
+        <div id="alertMensaje" class="alert" style="display: none;"></div>
+        <div class="card p-4">
+            <form id="depositForm">
+                <div class="form-group">
+                    <label for="inputDeposito">Monto a depositar:</label>
+                    <input type="number" class="form-control" id="inputDeposito" placeholder="Ej: 1000" min="1" required>
+                </div>
+                <button type="submit" class="btn btn-success btn-block">Realizar depósito</button>
+            </form>
+        </div>
+        <a href="menu.html" class="btn btn-outline-secondary mt-3">Volver al Menú Principal</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <script>
+
+
+
+        $(document).ready(function() {
+            var saldoActual = localStorage.getItem('walletSaldo');
+            if(saldoActual === null) {
+                saldoActual = 0;
+            } else {
+                saldoActual = parseInt(saldoActual); 
+            }
+
+            // Versión Vanilla JS: document.getElementById('depositForm').addEventListener('submit', function(evento) {
+            $('#depositForm').submit(function(evento) {
+                evento.preventDefault();
+                var montoIngresado = $('#inputDeposito').val();
+                var montoNumero = parseInt(montoIngresado);
+
+                if(montoNumero > 0) {
+                    var nuevoSaldo = saldoActual + montoNumero;
+                    localStorage.setItem('walletSaldo', nuevoSaldo);
+                    
+                    // Solo agregamos la clase de éxito sin lógica de limpieza
+                    $('#alertMensaje').addClass('alert-success');
+                    $('#alertMensaje').text('¡Depósito exitoso! Nuevo saldo: $' + nuevoSaldo);
+                    
+                    $('#alertMensaje').slideDown();
+                    $('#inputDeposito').val('');
+                    saldoActual = nuevoSaldo;
+
+                } else {
+                    // Solo agregamos la clase de error sin lógica de limpieza
+                    $('#alertMensaje').addClass('alert-danger');
+                    $('#alertMensaje').text('El monto debe ser mayor a 0');
+                    $('#alertMensaje').slideDown();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

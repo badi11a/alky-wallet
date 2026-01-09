@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallet - Menú Principal</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+
+    <div class="container mt-5" style="max-width: 500px;">
+        <h2 class="text-center mb-4">Menú Principal</h2>
+        
+        <div class="card text-center mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Saldo actual</h5>
+                <h1 id="saldoDisplay" class="display-4 text-success">$0</h1>
+            </div>
+        </div>
+
+        <div class="d-grid gap-2">
+            <a href="deposit.html" class="btn btn-primary btn-lg btn-block mb-3">Depositar</a>
+            <a href="sendmoney.html" class="btn btn-info btn-lg btn-block mb-3">Enviar Dinero</a>
+            <a href="transactions.html" class="btn btn-secondary btn-lg btn-block mb-3">Últimos Movimientos</a>
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="login.html" id="btnLogout" class="text-danger">Cerrar Sesión</a>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <script>
+
+        $(document).ready(function() {
+            
+            // 1. LEER EL SALDO (Igual que en deposit.html)
+            var saldo = localStorage.getItem('walletSaldo');
+            
+            // Validación estándar
+            if(saldo === null) {
+                saldo = 0;
+            } else {
+                saldo = parseInt(saldo);
+            }
+
+            // 2. MOSTRAR EN PANTALLA
+            // Si esto falla, es porque tu <h1> no tiene id="saldoDisplay"
+            $('#saldoDisplay').text('$' + saldo);
+
+
+            // 3. CERRAR SESIÓN
+            $('#btnLogout').click(function(evento) {
+                evento.preventDefault();
+                localStorage.clear(); // Borra el saldo del banco
+                window.location.href = "login.html";
+            });
+
+        });
+    </script>
+</body>
+</html>
