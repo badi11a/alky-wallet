@@ -9,37 +9,62 @@
 <body>
 
     <div class="container mt-5" style="max-width: 600px;">
-        <h2 class="mb-4">Últimos Movimientos</h2>
-        
-        <div class="list-group mb-4">
-            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">Compra en línea</h5>
-                    <small class="text-danger">-$5000</small>
-                </div>
-                <small>Hace 2 horas</small>
-            </a>
-            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">Depósito</h5>
-                    <small class="text-success">+$10000</small>
-                </div>
-                <small>Ayer</small>
-            </a>
-            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">Transferencia recibida</h5>
-                    <small class="text-success">+$7500</small>
-                </div>
-                <small>Hace 3 días</small>
-            </a>
-        </div>
+        <h2 class="mb-4 text-center">Últimos Movimientos</h2>
 
-        <a href="menu.html" class="btn btn-secondary">Volver al Menú Principal</a>
+        <div class="alert alert-info d-flex justify-content-between align-items-center">
+            <span>Saldo actual:</span>
+            <strong id="saldoDisplay" style="font-size: 1.2em;">$0</strong>
+        </div>
+        
+        <div id="listaMovimientos" class="list-group mb-4">
+            </div>
+
+        <a href="menu.html" class="btn btn-secondary btn-block">Volver al Menú Principal</a>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // 1. Cargar Saldo
+            var saldo = localStorage.getItem('walletSaldo') || 0;
+            $('#saldoDisplay').text('$' + saldo);
+
+            // 2. Cargar Historial
+            // El "|| []" es vital: si no hay historial, inicia uno vacío para que no dé error
+            var historial = JSON.parse(localStorage.getItem('walletHistorial')) || [];
+            
+            var contenedor = $('#listaMovimientos');
+
+            // 3. Validar si hay movimientos
+            if(historial.length === 0) {
+                contenedor.html('<div class="alert alert-warning text-center">No hay movimientos registrados aún.</div>');
+            } else {
+                // 4. Recorrer el array y generar HTML
+                historial.forEach(function(mov) {
+                    
+                    var claseColor = mov.esIngreso ? 'text-success' : 'text-danger';
+                    var signo = mov.esIngreso ? '+' : '-';
+
+                    var itemHTML = `
+                        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">${mov.tipo}</h5>
+                                <small class="${claseColor}" style="font-size: 1.1em; font-weight: bold;">
+                                    ${signo}$${mov.monto}
+                                </small>
+                            </div>
+                            <p class="mb-1">${mov.descripcion}</p>
+                            <small class="text-muted">${mov.fecha}</small>
+                        </a>
+                    `;
+
+                    contenedor.append(itemHTML);
+                });
+            }
+        });
+    </script>
 </body>
 </html>
